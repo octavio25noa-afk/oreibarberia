@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="O Rei Barbearia — Agende seu horário online. Cortes, barba e alinhamento de fios em Aracaju/SE.">
+  <title>O Rei Barbearia | Agendamento Online</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Cabeçalho -->
+  <header class="topbar">
+    <a href="#home" class="brand">
+      <span class="crown">♛</span>
+      <span class="brand-name">O REI <small>BARBEARIA</small></span>
+    </a>
+    <nav class="nav">
+      <a href="#servicos">Serviços</a>
+      <a href="#agendar" class="btn-gold">Agendar</a>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section id="home" class="hero">
+    <div class="hero-content">
+      <p class="hero-tag">💈 Barbearia exclusivamente masculina · Aracaju — SE</p>
+      <h1>AQUI VOCÊ É<br><span>TRATADO COMO REI</span></h1>
+      <p class="hero-sub">Corte, barba e alinhamento de fios com acabamento premium.
+         Ambiente no esquema: cerveja e games. Agende seu horário em 1 minuto.</p>
+      <div class="hero-actions">
+        <a href="#agendar" class="btn-gold btn-lg">Agendar agora</a>
+        <a class="btn-outline btn-lg" href="https://wa.me/5579998908960?text=Ol%C3%A1!%20Gostaria%20de%20mais%20informa%C3%A7%C3%B5es!" target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+      <div class="hero-info">
+        <div>🕖 Seg–Sex <b>09h–20h</b> · Sáb <b>08:30h–18h</b></div>
+        <div>📍 R. Edymêe de Azevedo Figueiredo, 3201</div>
+        <div>📲 (79) 99890-8960 · @oreibarbearia</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Serviços -->
+  <section id="servicos" class="section">
+    <h2 class="section-title">SERVIÇOS & PREÇOS <span class="line"></span></h2>
+    <div class="services" id="services-grid"><!-- gerado via JS --></div>
+    <p class="services-note">* Valores da tabela oficial da barbearia. Serviços com "a partir de" variam conforme o comprimento e o estilo.</p>
+  </section>
+
+  <!-- Agendamento -->
+  <section id="agendar" class="section section-dark">
+    <h2 class="section-title">AGENDE SEU HORÁRIO <span class="line"></span></h2>
+
+    <div class="wizard" id="wizard">
+      <!-- Passos -->
+      <ol class="steps" id="steps-indicator">
+        <li data-step="1" class="active"><span>1</span> Serviço</li>
+        <li data-step="2"><span>2</span> Barbeiro</li>
+        <li data-step="3"><span>3</span> Data/Hora</li>
+        <li data-step="4"><span>4</span> Seus dados</li>
+      </ol>
+
+      <!-- Etapa 1: serviço -->
+      <div class="step-panel" id="panel-1">
+        <div class="cards" id="booking-services"></div>
+      </div>
+
+      <!-- Etapa 2: barbeiro -->
+      <div class="step-panel hidden" id="panel-2">
+        <div class="cards" id="booking-barbers"></div>
+      </div>
+
+      <!-- Etapa 3: data e hora -->
+      <div class="step-panel hidden" id="panel-3">
+        <label class="label" for="booking-date">Escolha o dia</label>
+        <input type="date" id="booking-date" class="input">
+        <p class="slot-note" id="slot-note">Segunda a sexta 09h–20h · Sábado 08:30h–18h · Domingo fechado</p>
+        <div class="slots" id="time-slots"></div>
+      </div>
+
+      <!-- Etapa 4: dados -->
+      <div class="step-panel hidden" id="panel-4">
+        <label class="label" for="client-name">Seu nome</label>
+        <input type="text" id="client-name" class="input" placeholder="Nome completo" autocomplete="name">
+        <label class="label" for="client-phone">Seu WhatsApp</label>
+        <input type="tel" id="client-phone" class="input" placeholder="(79) 90000-0000" autocomplete="tel">
+        <label class="label" for="client-notes">Observação (opcional)</label>
+        <textarea id="client-notes" class="input" rows="3" placeholder="Ex.: quero degradê na tesoura e máquina"></textarea>
+      </div>
+
+      <!-- Resumo lateral -->
+      <aside class="summary" id="summary">
+        <h3>Resumo</h3>
+        <ul>
+          <li><span>Serviço</span><b id="sum-service" class="waiting">—</b></li>
+          <li><span>Barbeiro</span><b id="sum-barber" class="waiting">—</b></li>
+          <li><span>Data</span><b id="sum-date" class="waiting">—</b></li>
+          <li><span>Hora</span><b id="sum-time" class="waiting">—</b></li>
+          <li class="total"><span>Total</span><b id="sum-price" class="waiting">—</b></li>
+        </ul>
+        <div class="wizard-actions">
+          <button type="button" class="btn-ghost" id="btn-prev" disabled>Voltar</button>
+          <button type="button" class="btn-gold" id="btn-next" disabled>Continuar</button>
+          <button type="button" class="btn-gold hidden" id="btn-confirm">Confirmar agendamento</button>
+        </div>
+      </aside>
+    </div>
+
+    <!-- Confirmação -->
+    <div class="confirm hidden" id="confirm-box">
+      <div class="confirm-icon">👑</div>
+      <h3>Agendamento confirmado!</h3>
+      <p>Seu horário está reservado. Para garanti-lo, envie a confirmação pelo WhatsApp da barbearia:</p>
+      <div class="confirm-details" id="confirm-details"></div>
+      <div class="confirm-actions">
+        <a class="btn-gold btn-lg" id="btn-whatsapp" target="_blank" rel="noopener">Confirmar no WhatsApp</a>
+        <a class="btn-outline" href="https://www.instagram.com/oreibarbearia/" target="_blank" rel="noopener">@oreibarbearia</a>
+      </div>
+      <p id="confirm-status" class="confirm-status"></p>
+    </div>
+
+    <!-- Meus agendamentos -->
+    <div class="my-bookings">
+      <button type="button" class="btn-link" id="toggle-bookings">Ver meus agendamentos salvos</button>
+      <ul class="bookings-list hidden" id="bookings-list"></ul>
+    </div>
+  </section>
+
+  <!-- Localização + Contato -->
+  <section id="contato" class="section">
+    <h2 class="section-title">ONDE ESTAMOS <span class="line"></span></h2>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <h4>📍 Endereço</h4>
+        <p>R. Edymêe de Azevedo Figueiredo, 3201<br>Aracaju — Sergipe</p>
+        <a class="btn-outline" href="https://www.google.com/maps/search/?api=1&query=R.+Edym%C3%AAe+de+Azevedo+Figueiredo+3201+Aracaju+SE" target="_blank" rel="noopener">Como chegar</a>
+      </div>
+      <div class="contact-card">
+        <h4>🕖 Horários</h4>
+        <p>Segunda a sexta — 09h00 às 20h00<br>Sábado — 08h30 às 18h00<br>Domingo — Fechado</p>
+      </div>
+      <div class="contact-card">
+        <h4>📲 Contato</h4>
+        <p>WhatsApp (79) 99890-8960<br>Instagram @oreibarbearia</p>
+        <a class="btn-outline" href="https://wa.me/5579998908960?text=Ol%C3%A1!%20Gostaria%20de%20mais%20informa%C3%A7%C3%B5es!" target="_blank" rel="noopener">Chamar no WhatsApp</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Rodapé -->
+  <footer class="footer">
+    <p><span class="crown">♛</span> O Rei Barbearia · Aracaju/SE · <a href="https://www.instagram.com/oreibarbearia/" target="_blank" rel="noopener">Instagram</a></p>
+    <p class="note">Site de demonstração de agendamento criado a partir das informações públicas do Instagram da barbearia.</p>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
